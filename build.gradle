@@ -1,0 +1,29 @@
+group 'org.yunghegel.gdx'
+version "$gdxUiVersion"
+
+dependencies {
+    implementation "org.apache.commons:commons-lang3:3.12.0"
+
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "yunghegelSnapshots" //REPOSITORY NAME
+            url = uri("https://repo.yunghegel.org/snapshots") //REPOSITORY URL
+            credentials(PasswordCredentials)
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "org.yunghegel.gdx"
+            artifactId = "gdx-ui"
+            version = version
+            from components.java
+        }
+    }
+}
