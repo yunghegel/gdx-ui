@@ -1,6 +1,7 @@
 package org.yunghegel.gdx.ui.widgets.viewport;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,18 +13,18 @@ public class ViewportStage extends Stage {
 
     private STable root;
     private Matrix4 projectionMatrix;
-    private ViewportProperties viewportProperties;
+    public ViewportProperties viewportProperties;
     private ScreenViewport viewport;
 
 
 
-    private class ViewportProperties {
+    public class ViewportProperties {
 
-        private Vector2 temp = new Vector2();
-        private Vector2 origin = new Vector2();
-        private int width;
-        private int height;
-        private int viewportOriginalX =0, viewportOriginalY=0;
+        public Vector2 temp = new Vector2();
+        public Vector2 origin = new Vector2();
+        public int width;
+        public int height;
+        public int viewportOriginalX =0, viewportOriginalY=0;
 
         private final ScreenViewport viewport;
 
@@ -43,7 +44,7 @@ public class ViewportStage extends Stage {
         }
 
         public Matrix4 calculateProjectionMatrix() {
-            projectionMatrix.setToOrtho2D(viewportOriginalX, viewportOriginalY, width, height);
+            Matrix4 projectionMatrix= new Matrix4().setToOrtho2D(viewportOriginalX, viewportOriginalY, width, height);
             projectionMatrix.translate(origin.x, origin.y, 0);
             projectionMatrix.scale(1, -1, 1);
             return projectionMatrix;
@@ -66,8 +67,16 @@ public class ViewportStage extends Stage {
     public void act() {
         super.act();
         viewportProperties.update();
-        getViewport().setScreenPosition(viewportProperties.viewportOriginalX, viewportProperties.viewportOriginalY);
-        getViewport().update(viewportProperties.width, viewportProperties.height, true);
+        projectionMatrix = viewportProperties.calculateProjectionMatrix();
+
+    }
+
+    public void debugDraw(ShapeRenderer shapeRenderer){
+        shapeRenderer.setProjectionMatrix(projectionMatrix);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(1, 0, 0, 1);
+        shapeRenderer.rect(0, 0, viewportProperties.width, viewportProperties.height);
+        shapeRenderer.end();
     }
 
 }

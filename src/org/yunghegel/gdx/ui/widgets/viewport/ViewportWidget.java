@@ -28,11 +28,11 @@ public class ViewportWidget extends Widget {
     public Stage stage;
     public ViewportStage uiStage;
 
-    private Vector2 temp = new Vector2();
+    public Vector2 temp = new Vector2();
     public Vector2 origin = new Vector2();
     public int width;
     public int height;
-    int viewportOriginalX =0, viewportOriginalY=0;
+    public int viewportOriginalX =0, viewportOriginalY=0;
 
     public boolean active = false;
     public boolean previousActive = false;
@@ -51,6 +51,7 @@ public class ViewportWidget extends Widget {
          this.viewport = viewport;
         this.stage = stage;
         uiStage = new ViewportStage(this);
+
         viewportInputs = inputs;
 
         createListeners();
@@ -146,16 +147,16 @@ public class ViewportWidget extends Widget {
             handleEvent(new GameViewportAppliedEvent(this));
         }
 
-        uiStage.act();
-        uiStage.getViewport().apply();
-        uiStage.draw();
+
 
         if(renderer!=null){
             renderer.render(Gdx.graphics.getDeltaTime());
         }
 
         stage.getViewport().apply();
-
+        uiStage.act();
+        uiStage.getViewport().apply();
+        uiStage.draw();
 
 
         handleEvent(new StageViewportAppliedEvent(this));
