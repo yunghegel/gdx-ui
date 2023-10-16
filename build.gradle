@@ -3,10 +3,11 @@ group 'org.yunghegel.gdx'
 version "$gdxUiVersion"
 
 dependencies {
-    implementation "org.apache.commons:commons-lang3:3.12.0"
-    implementation project(path: ':gdx-scenegraph')
-    implementation project(path: ':gdx-yung-utils')
-
+    api "org.apache.commons:commons-lang3:3.12.0"
+    api project(path: ':gdx-scenegraph')
+    api project(path: ':gdx-yung-utils')
+api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
+    api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
     testImplementation "io.github.fourlastor.gdx:scope:0.1.2"
 
 }

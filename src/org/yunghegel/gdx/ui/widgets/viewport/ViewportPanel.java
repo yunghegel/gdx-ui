@@ -4,7 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
-import lombok.Getter;
 import org.yunghegel.gdx.ui.UI;
 import org.yunghegel.gdx.ui.widgets.STable;
 
@@ -13,8 +12,7 @@ public class ViewportPanel extends STable {
     public ViewportWidget viewportWidget;
     public Stack stack;
 
-    @Getter
-    private STable uiBody;
+    public STable uiBody;
 
     public ViewportPanel (ViewportWidget widget) {
         this.viewportWidget=widget;

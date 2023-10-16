@@ -90,7 +90,9 @@ public class UI {
 
     public static void drawText(String text, float x, float y) {
         if(!loaded) throw new RuntimeException("UI not loaded!");
+        batch.begin();
         font.draw(batch, text, x, y);
+        batch.end();
     }
 
 
@@ -577,6 +579,13 @@ public class UI {
             }
         }));
         return t;
+    }
+
+    public static void tooltip(Actor actor, String text) {
+        TextTooltip tooltip = new TextTooltip(text, getSkin());
+        tooltip.setInstant(true);
+        actor.addListener(tooltip);
+
     }
 
 
